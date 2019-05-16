@@ -4,10 +4,12 @@ var itemID;
 var itemQuantity;
 var productName;
 var productInventory;
+var confirmOrder;
+var productPrice;
 var connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '***',
+    password: '*******',
     database: 'bamazon'
 });
 
@@ -17,7 +19,7 @@ connection.connect(function (err) {
 });
 
 function start() {
-    connection.query('SELECT * from products', function (error, results, fields) {
+    connection.query('SELECT id, product_name, department_name, price_USD FROM products', function (error, results, fields) {
         if (error) throw error;
         console.log("Current inventory:")
         console.table(results);
@@ -48,10 +50,26 @@ function start() {
                         if (error) throw error;
                         productName = results[0].product_name;
                         productInventory = results[0].inventory;
+                        productPrice = results[0].price_USD;
                         if (itemQuantity > productInventory) {
                             console.log("NOT ENOUGH INVENTORY TO MEET YOUR NEEDS!")
                         } else {
-                            console.log("You would like to by " + itemQuantity + " of " + productName)
+                            inquirer
+                                .prompt({
+                                    name: "confirmOrder",
+                                    type: "confirm",
+                                    message: "Your order is for " + itemQuantity + " of " + productName + ", does that sound correct?"
+                                })
+                                .then(function (answer) {
+                                    confirmOrder = answer.confirmOrder
+                                    if (confirmOrder === false) {
+                                        console.log("Okay, please come back when you can make a purchase.")
+                                    } else if (confirmOrder === true) {
+                                        console.log("Thank you for your order, your total comes out to $" + productPrice * itemQuantity)
+                                    } else {
+                                        console.log("database error: please try again later")
+                                    }
+                                })
                         }
                     })
                 connection.end()
@@ -60,7 +78,4 @@ function start() {
     })
 };
 start();
-// connection.query('SELECT * from products', function (error, results, fields) {
-//     if (error) throw error;
-//     console.table(results);
-// });
+

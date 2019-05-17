@@ -4,12 +4,14 @@ var itemID;
 var itemQuantity;
 var productName;
 var productInventory;
+var newProductInventory;
 var confirmOrder;
 var productPrice;
+
 var connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '*******',
+    password: '****',
     database: 'bamazon'
 });
 
@@ -17,6 +19,22 @@ connection.connect(function (err) {
     if (err) throw err;
 
 });
+function updateProduct() {
+    connection.query("UPDATE products SET ? WHERE ?",
+    [
+        {
+            inventory: newProductInventory
+        },
+        {
+            id: itemID
+        }
+    ],
+    function (err, res) {
+        if (err) throw err;
+        console.log("Thank you for your order, your total comes out to $" + productPrice * itemQuantity)
+    });
+}
+
 
 function start() {
     connection.query('SELECT id, product_name, department_name, price_USD FROM products', function (error, results, fields) {
@@ -53,29 +71,45 @@ function start() {
                         productPrice = results[0].price_USD;
                         if (itemQuantity > productInventory) {
                             console.log("NOT ENOUGH INVENTORY TO MEET YOUR NEEDS!")
+                            connection.end()
                         } else {
                             inquirer
                                 .prompt({
                                     name: "confirmOrder",
                                     type: "confirm",
-                                    message: "Your order is for " + itemQuantity + " of " + productName + ", does that sound correct?"
+                                    message: "Your order is for " + itemQuantity + " of " + productName + ", is that correct?"
                                 })
                                 .then(function (answer) {
                                     confirmOrder = answer.confirmOrder
+                                    newProductInventory = productInventory - itemQuantity;
+                                    
                                     if (confirmOrder === false) {
                                         console.log("Okay, please come back when you can make a purchase.")
+                                        connection.end()
                                     } else if (confirmOrder === true) {
-                                        console.log("Thank you for your order, your total comes out to $" + productPrice * itemQuantity)
+                                        updateProduct()
+                                        connection.end()
                                     } else {
                                         console.log("database error: please try again later")
+                                        connection.end()
                                     }
                                 })
                         }
                     })
-                connection.end()
+                    
+                    
+                
             })
 
     })
+
+
+    
+    //     var sql = "UPDATE customers SET address = 'Canyon 123' WHERE address = 'Valley 345'";
+    //   con.query(sql, function (err, result) {
+    //     if (err) throw err;
+    //     console.log(result.affectedRows + " record(s) updated");
+    //   });
 };
 start();
 

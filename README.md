@@ -1,5 +1,8 @@
 # Node.js-MySQL-Marketplace
 
+#### Link to portfolio
+https://ashannon1990.github.io/Developer-Portfolio/
+
 ## Overview
 
 In this activity, I created an internet storefront with MySQL. The app takes in orders from customers and deplete stock from the store's inventory.

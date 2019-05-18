@@ -135,7 +135,6 @@ function checkDatabase() {
                             newProductPrice = answer.productPrice;
                             newProductInventory = answer.initialInventory;
                             addNewItem();
-                            connection.end();
                         })
 
 

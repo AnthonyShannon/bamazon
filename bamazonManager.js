@@ -5,7 +5,6 @@ var lowInventory = []
 var itemsInStore = []
 var amountToRestock
 var itemToRestock
-var itemInventory
 
 var connection = mysql.createConnection({
     host: '127.0.0.1',

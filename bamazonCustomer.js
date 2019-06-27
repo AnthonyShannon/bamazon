@@ -12,7 +12,7 @@ var productPrice;
 var connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '****',
+    password: 'alphaCoder90',
     database: 'bamazon'
 });
 
@@ -39,7 +39,7 @@ function updateProduct() {
 }
 
 // function to run the programnode 
-function start() {
+function goShopping() {
     connection.query('SELECT id, product_name, department_name, price_USD FROM products', function (error, results, fields) {
         if (error) throw error;
         console.log("Current inventory:")
@@ -102,4 +102,4 @@ function start() {
             })
     })
 };
-start();
+goShopping();

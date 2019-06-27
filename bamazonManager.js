@@ -9,7 +9,7 @@ var itemToRestock
 var connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '****',
+    password: 'alphaCoder90',
     database: 'bamazon'
 });
 connection.connect()

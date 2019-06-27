@@ -1,7 +1,7 @@
 # Node.js-MySQL-Marketplace
 
 #### Link to portfolio
-https://ashannon1990.github.io/Developer-Portfolio/
+https://anthonyshannon.io/
 
 ## Overview
 

@@ -1,3 +1,4 @@
+require("dotenv").config()
 var inquirer = require("inquirer")
 var mysql = require("mysql");
 var option
@@ -8,8 +9,8 @@ var itemToRestock
 
 var connection = mysql.createConnection({
     host: '127.0.0.1',
-    user: 'root',
-    password: 'root',
+    user: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
     database: 'bamazon'
 });
 connection.connect()

@@ -1,0 +1,24 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "https://anthonyshannon.io/",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashannon1990/bamazon.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashannon1990/bamazon/issues"
+  },
+  "homepage": "https://github.com/ashannon1990/bamazon#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "inquirer": "^7.0.0",
+    "mysql": "^2.17.1"
+  }
+}

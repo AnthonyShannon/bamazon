@@ -18,7 +18,7 @@ let connection = mysql.createConnection({
 });
 
 // connect to database
-connection.connect((err) => {
+connection.connect(err => {
     if (err) throw err;
 
 });
@@ -59,7 +59,7 @@ const goShopping = () => {
                 type: "input",
                 message: "How many units would you like to buy?"
             }])
-            .then((answer) => {
+            .then(answer => {
                 itemID = answer.itemID;
                 itemQuantity = answer.amount;
                 // get info for requested product
@@ -83,7 +83,7 @@ const goShopping = () => {
                                     type: "confirm",
                                     message: "Your order is for " + itemQuantity + " of " + productName + ", is that correct?"
                                 })
-                                .then((answer) => {
+                                .then(answer => {
                                     confirmOrder = answer.confirmOrder
                                     newProductInventory = productInventory - itemQuantity;
                                     // check if user said order is correct

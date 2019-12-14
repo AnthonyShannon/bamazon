@@ -54,7 +54,7 @@ const checkDatabase = () => {
             choices: ["View products for sale", "View low inventory", "Add to inventory", "Add new product"],
             message: "What would you like to do?"
         })
-        .then((answer) => {
+        .then(answer => {
             option = answer.options
             switch (option) {
                 case "View products for sale":
@@ -84,7 +84,7 @@ const checkDatabase = () => {
                             type: "number",
                             message: "How many would you like to order for your inventory?"
                         }])
-                        .then((answer) => {
+                        .then(answer => {
                             itemToRestock = answer.itemToRestock;
                             amountToRestock = answer.amountToRestock;
                             if (isNaN(amountToRestock)) {
@@ -96,7 +96,7 @@ const checkDatabase = () => {
                                         type: "confirm",
                                         message: "Confirm, you would like to order " + amountToRestock + " of " + itemToRestock + " for your inventory?"
                                     })
-                                    .then((answer) => {
+                                    .then(answer => {
                                         if (answer.confirmRestock === false) {
                                             console.log("Okay, cancelling order.")
                                             connection.end()
@@ -130,7 +130,7 @@ const checkDatabase = () => {
                             type: "number",
                             message: "How many are you stocking?"
                         }])
-                        .then((answer) => {
+                        .then(answer => {
                             newProductName = answer.newProduct;
                             newProductDepartment = answer.productDepartment;
                             newProductPrice = answer.productPrice;

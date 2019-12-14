@@ -14,39 +14,39 @@ let connection = mysql.createConnection({
     database: 'bamazon'
 });
 connection.connect()
-function updateInventory() {
+const updateInventory = () => {
     connection.query("UPDATE products SET inventory = inventory + " + amountToRestock + " WHERE ?",
         {
             product_name: itemToRestock
         },
-        function (err, res) {
+        (err, res) => {
             if (err) throw err;
             console.log("Okay, you have added to your inventory.")
             connection.end()
         });
 }
-function addNewItem() {
+const addNewItem = () => {
     connection.query("INSERT INTO products(product_name, department_name, price_USD, inventory) VALUES ('" + newProductName + "', '" + newProductDepartment + "', '" + newProductPrice + "', '" + newProductInventory + "')",
-        function (err, res) {
+        (err, res) => {
             if (err) throw err;
             console.log("Okay, you have added " + newProductName + " to your store.")
             connection.end()
         });
 }
-connection.query('SELECT * FROM products WHERE inventory <= 5', function (error, results) {
+connection.query('SELECT * FROM products WHERE inventory <= 5', (error, results) => {
     if (error) throw error;
     for (let i = 0; i < results.length; i++) {
         lowInventory.push(results[i].product_name)
     }
 })
-connection.query('SELECT * FROM products', function (error, results) {
+connection.query('SELECT * FROM products', (error, results) => {
     if (error) throw error;
     for (let i = 0; i < results.length; i++) {
         itemsInStore.push(results[i].product_name)
     }
 })
 
-function checkDatabase() {
+const checkDatabase = () => {
     inquirer
         .prompt({
             name: "options",
@@ -54,18 +54,18 @@ function checkDatabase() {
             choices: ["View products for sale", "View low inventory", "Add to inventory", "Add new product"],
             message: "What would you like to do?"
         })
-        .then(function (answer) {
+        .then((answer) => {
             option = answer.options
             switch (option) {
                 case "View products for sale":
-                    connection.query('SELECT * FROM products', function (error, results) {
+                    connection.query('SELECT * FROM products', (error, results) => {
                         if (error) throw error;
                         console.table(results)
                         connection.end()
                     })
                     break;
                 case "View low inventory":
-                    connection.query('SELECT * FROM products WHERE inventory <= 5', function (error, results) {
+                    connection.query('SELECT * FROM products WHERE inventory <= 5', (error, results) => {
                         if (error) throw error;
                         console.table(results)
                         connection.end()
@@ -84,7 +84,7 @@ function checkDatabase() {
                             type: "number",
                             message: "How many would you like to order for your inventory?"
                         }])
-                        .then(function (answer) {
+                        .then((answer) => {
                             itemToRestock = answer.itemToRestock;
                             amountToRestock = answer.amountToRestock;
                             if (isNaN(amountToRestock)) {
@@ -96,7 +96,7 @@ function checkDatabase() {
                                         type: "confirm",
                                         message: "Confirm, you would like to order " + amountToRestock + " of " + itemToRestock + " for your inventory?"
                                     })
-                                    .then(function (answer) {
+                                    .then((answer) => {
                                         if (answer.confirmRestock === false) {
                                             console.log("Okay, cancelling order.")
                                             connection.end()
@@ -130,7 +130,7 @@ function checkDatabase() {
                             type: "number",
                             message: "How many are you stocking?"
                         }])
-                        .then(function (answer) {
+                        .then((answer) => {
                             newProductName = answer.newProduct;
                             newProductDepartment = answer.productDepartment;
                             newProductPrice = answer.productPrice;

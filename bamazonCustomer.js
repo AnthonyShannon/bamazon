@@ -18,12 +18,12 @@ let connection = mysql.createConnection({
 });
 
 // connect to database
-connection.connect(function (err) {
+connection.connect((err) => {
     if (err) throw err;
 
 });
 // function to update inventory in database if product is purchased
-function updateProduct() {
+const updateProduct = () => {
     connection.query("UPDATE products SET ? WHERE ?",
         [
             {
@@ -33,15 +33,15 @@ function updateProduct() {
                 id: itemID
             }
         ],
-        function (err, res) {
+        (err, res) => {
             if (err) throw err;
             console.log("Thank you for your order, your total comes out to $" + productPrice * itemQuantity)
         });
 }
 
 // function to run the programnode 
-function goShopping() {
-    connection.query('SELECT id, product_name, department_name, price_USD FROM products', function (error, results, fields) {
+const goShopping = () => {
+    connection.query('SELECT id, product_name, department_name, price_USD FROM products', (error, results, fields) => {
         if (error) throw error;
         console.log("Current inventory:")
         console.table(results);
@@ -59,7 +59,7 @@ function goShopping() {
                 type: "input",
                 message: "How many units would you like to buy?"
             }])
-            .then(function (answer) {
+            .then((answer) => {
                 itemID = answer.itemID;
                 itemQuantity = answer.amount;
                 // get info for requested product
@@ -67,7 +67,7 @@ function goShopping() {
                     {
                         id: itemID
                     },
-                    function (error, results) {
+                    (error, results) => {
                         if (error) throw error;
                         productName = results[0].product_name;
                         productInventory = results[0].inventory;
@@ -83,7 +83,7 @@ function goShopping() {
                                     type: "confirm",
                                     message: "Your order is for " + itemQuantity + " of " + productName + ", is that correct?"
                                 })
-                                .then(function (answer) {
+                                .then((answer) => {
                                     confirmOrder = answer.confirmOrder
                                     newProductInventory = productInventory - itemQuantity;
                                     // check if user said order is correct

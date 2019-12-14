@@ -1,13 +1,13 @@
 require("dotenv").config()
-var inquirer = require("inquirer")
-var mysql = require("mysql");
-var option
-var lowInventory = []
-var itemsInStore = []
-var amountToRestock
-var itemToRestock
+let inquirer = require("inquirer")
+let mysql = require("mysql");
+let option
+let lowInventory = []
+let itemsInStore = []
+let amountToRestock
+let itemToRestock
 
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: '127.0.0.1',
     user: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
@@ -35,13 +35,13 @@ function addNewItem() {
 }
 connection.query('SELECT * FROM products WHERE inventory <= 5', function (error, results) {
     if (error) throw error;
-    for (var i = 0; i < results.length; i++) {
+    for (let i = 0; i < results.length; i++) {
         lowInventory.push(results[i].product_name)
     }
 })
 connection.query('SELECT * FROM products', function (error, results) {
     if (error) throw error;
-    for (var i = 0; i < results.length; i++) {
+    for (let i = 0; i < results.length; i++) {
         itemsInStore.push(results[i].product_name)
     }
 })

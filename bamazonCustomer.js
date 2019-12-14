@@ -1,16 +1,16 @@
 require("dotenv").config()
-var inquirer = require("inquirer")
-var mysql = require("mysql");
-var itemID;
-var itemQuantity;
-var productName;
-var productInventory;
-var newProductInventory;
-var confirmOrder;
-var productPrice;
+let inquirer = require("inquirer")
+let mysql = require("mysql");
+let itemID;
+let itemQuantity;
+let productName;
+let productInventory;
+let newProductInventory;
+let confirmOrder;
+let productPrice;
 
 // configure database
-var connection = mysql.createConnection({
+let connection = mysql.createConnection({
     host: 'localhost',
     user: process.env.DATABASE_USERNAME,
     password: process.env.DATABASE_PASSWORD,
